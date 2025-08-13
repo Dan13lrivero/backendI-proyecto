@@ -1,1 +1,42 @@
-[]
+[
+  {
+    "id": 1,
+    "title": "Lentes de sol",
+    "description": "Lentes de sol estilo aviador con marco metálico.",
+    "price": 1500,
+    "thumbnail": "/img/lentesdesol1.jpg",
+    "code": "AV001",
+    "stock": 10,
+    "category": "sol"
+  },
+  {
+    "id": 2,
+    "title": "Lentes Ópticos moderno",
+    "description": "Lentes ópticos con armazón plástico negro.",
+    "price": 2500,
+    "thumbnail": "/img/lentesdever1.jpg",
+    "code": "OP002",
+    "stock": 5,
+    "category": "ópticos"
+  },
+  {
+    "id": 3,
+    "title": "Lentes de sol verano",
+    "description": "Lentes de sol estilo aviador con marco metálico.",
+    "price": 1500,
+    "thumbnail": "/img/lentesdesol2.jpg",
+    "code": "AV001",
+    "stock": 10,
+    "category": "sol"
+  },
+  {
+    "id": 4,
+    "title": "Lentes Ópticos clasico",
+    "description": "Lentes ópticos con armazón plástico negro.",
+    "price": 2500,
+    "thumbnail": "/img/lentesdever2.jpg",
+    "code": "OP002",
+    "stock": 5,
+    "category": "ópticos"
+  }
+]
