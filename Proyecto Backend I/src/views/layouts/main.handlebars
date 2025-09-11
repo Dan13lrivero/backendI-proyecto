@@ -12,10 +12,22 @@
     <ul class="nav-list">
       <li><a href="/">Inicio</a></li>
       <li><a href="/realtimeproducts">Productos</a></li>
+      <li><a href="#" id="viewCartBtn">Mi Carrito</a></li>
     </ul>
   </nav>
   <hr>
   {{{body}}}
   <script src="/socket.io/socket.io.js"></script>
+  <script>
+    const cartId = localStorage.getItem('cartId');
+    const btn = document.getElementById('viewCartBtn');
+    btn.onclick = () => {
+      if (cartId) {
+        window.location.href = `/carts/${cartId}`;
+      } else {
+        alert('Aún no tenés un carrito creado.');
+      }
+    };
+  </script>
 </body>
 </html>

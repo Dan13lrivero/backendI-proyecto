@@ -73,3 +73,12 @@ button.deleteBtn:hover {
     color: white;
     text-decoration: none;
 }
+.cart-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 20px;
+}
+.carrito {
+  text-align: center;
+}

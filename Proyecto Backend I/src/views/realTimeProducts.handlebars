@@ -1,28 +1,60 @@
-<h1>Productos en tiempo real</h1>
+<h1 class="text-center mb-4">Productos en tiempo real</h1>
 
-<form id="productForm">
-  <input name="title" placeholder="Título" required />
-  <input name="description" placeholder="Descripción" />
-  <input name="price" type="number" step="0.01" placeholder="Precio" required />
-  <input name="thumbnail" placeholder="URL imagen" />
-  <input name="code" placeholder="Código" />
-  <input name="stock" type="number" placeholder="Stock" />
-  <button type="submit">Agregar</button>
-</form>
-
-<hr/>
-
-<div id="productList" class="cards-container">
+<div id="productList" class="cards-container d-flex flex-wrap justify-content-center gap-3">
   {{#each products}}
-    <div class="card" data-id="{{this.id}}">
-      <img src="{{this.thumbnail}}" alt="{{this.title}}" />
+    <div class="card text-center p-2" data-id="{{this._id}}">
+      <img src="{{this.thumbnail}}" alt="{{this.title}}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
       <h3>{{this.title}}</h3>
       <p>{{this.description}}</p>
       <p>Precio: ${{this.price}}</p>
-      <button class="deleteBtn" data-id="{{this.id}}">Eliminar</button>
+      <button class="addCartBtn" data-id="{{this._id}}">Agregar al carrito</button>
+      <button class="deleteBtn" data-id="{{this._id}}">Eliminar</button>
     </div>
   {{/each}}
 </div>
 
 <script src="/socket.io/socket.io.js"></script>
-<script src="/realtime.js"></script>
+<script>
+const socket = io();
+
+socket.on('updateProducts', async (products) => {
+  const container = document.getElementById('productList');
+  container.innerHTML = '';
+  products.forEach(p => {
+    container.innerHTML += `
+      <div class="card text-center p-2" data-id="${p._id}">
+        <img src="${p.thumbnail}" alt="${p.title}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
+        <h3>${p.title}</h3>
+        <p>${p.description}</p>
+        <p>Precio: $${p.price}</p>
+        <button class="addCartBtn" data-id="${p._id}">Agregar al carrito</button>
+        <button class="deleteBtn" data-id="${p._id}">Eliminar</button>
+      </div>
+    `;
+  });
+
+  let cartId = localStorage.getItem('cartId');
+  if (!cartId) {
+    const res = await fetch('/api/carts', { method: 'POST' });
+    const data = await res.json();
+    cartId = data._id;
+    localStorage.setItem('cartId', cartId);
+  }
+
+  document.querySelectorAll('.addCartBtn').forEach(btn => {
+    btn.onclick = async () => {
+      const productId = btn.getAttribute('data-id');
+      console.log('Agregando producto al carrito:', cartId, productId);
+      await fetch(`/api/carts/${cartId}/products/${productId}`, { method: 'POST' });
+      alert('Producto agregado al carrito');
+    };
+  });
+
+  document.querySelectorAll('.deleteBtn').forEach(btn => {
+    btn.onclick = async () => {
+      const id = btn.getAttribute('data-id');
+      socket.emit('deleteProduct', id);
+    };
+  });
+});
+</script>

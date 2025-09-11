@@ -51,4 +51,4 @@ if (form) {
     socket.emit('addProduct', product);
     form.reset();
   });
-}
+}  

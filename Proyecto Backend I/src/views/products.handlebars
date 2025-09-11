@@ -1,0 +1,24 @@
+<h1>Productos</h1>
+
+<form id="filterForm">
+  <select name="category">
+    <option value="">Todas las categorías</option>
+    <option value="lentes_de_sol">Lentes de Sol</option>
+    <option value="lentes_opticos">Lentes Ópticos</option>
+  </select>
+
+  <select name="sort">
+    <option value="">Sin orden</option>
+    <option value="asc">Precio Ascendente</option>
+    <option value="desc">Precio Descendente</option>
+  </select>
+
+  <button type="submit">Filtrar</button>
+</form>
+
+<div id="productsContainer">
+</div>
+
+<div id="pagination"></div>
+
+<script src="/products.js"></script>  
