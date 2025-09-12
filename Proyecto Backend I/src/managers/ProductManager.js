@@ -12,7 +12,7 @@ const productSchema = new mongoose.Schema({
   status: { type: Boolean, default: true }
 });
 
-const Product = mongoose.model("Product", productSchema);
+const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 
 export default class ProductManager {
   constructor() {}
@@ -57,4 +57,4 @@ export default class ProductManager {
       await Product.insertMany(products);
     }
   }
-}  
+}

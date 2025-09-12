@@ -11,6 +11,11 @@
         <button class="removeFromCartBtn" data-id="{{this.product._id}}">Eliminar</button>
       </div>
     {{/each}}
+
+    <!-- Botón global para vaciar el carrito -->
+    <div class="w-100 text-center mt-4">
+      <button id="clearCartBtn" class="btn btn-danger">Vaciar carrito</button>
+    </div>
   {{else}}
     <p>El carrito está vacío</p>
   {{/if}}
@@ -30,5 +35,15 @@ document.querySelectorAll('.removeFromCartBtn').forEach(btn => {
       alert('Error al eliminar producto');
     }
   };
+});
+
+document.getElementById('clearCartBtn')?.addEventListener('click', async () => {
+  const res = await fetch(`/api/carts/${cartId}`, { method: 'DELETE' });
+  if(res.ok) {
+    alert('Carrito vaciado');
+    location.reload();
+  } else {
+    alert('Error al vaciar carrito');
+  }
 });
 </script>

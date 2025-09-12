@@ -38,7 +38,7 @@ app.get('/', async (req, res) => {
   res.render('home', { products });
 });
 
-app.get('/products', async (req, res) => {
+app.get('/products', (req, res) => {
   res.render('products');
 });
 

@@ -12,7 +12,7 @@ async function loadProducts(page = 1) {
   if (category) query.push(`category:${category}`);
   const queryString = query.length ? `&query=${query.join(',')}` : '';
 
-  const res = await fetch(`/api/products?limit=10&page=${page}${sort ? `&sort=${sort}` : ''}${queryString}`);
+  const res = await fetch(`/api/products?limit=5&page=${page}${sort ? `&sort=${sort}` : ''}${queryString}`);
   const data = await res.json();
 
   container.innerHTML = '';
@@ -39,10 +39,14 @@ async function loadProducts(page = 1) {
   document.querySelectorAll('.addCartBtn').forEach(btn => {
     btn.onclick = async () => {
       const productId = btn.getAttribute('data-id');
-      const cartId = "1"; 
-      await fetch(`/api/carts/${cartId}/products/${productId}`, {
-        method: 'POST'
-      });
+      let cartId = localStorage.getItem('cartId');
+      if (!cartId) {
+        const res = await fetch('/api/carts', { method: 'POST' });
+        const data = await res.json();
+        cartId = data._id;
+        localStorage.setItem('cartId', cartId);
+      }
+      await fetch(`/api/carts/${cartId}/products/${productId}`, { method: 'POST' });
       alert('Producto agregado al carrito');
     };
   });
@@ -53,4 +57,4 @@ form.onsubmit = (e) => {
   loadProducts(1);
 };
 
-window.onload = () => loadProducts(currentPage);  
+window.onload = () => loadProducts(currentPage);

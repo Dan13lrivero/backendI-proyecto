@@ -1,11 +1,11 @@
 import { Router } from 'express';
-import Product from '../managers/ProductManager.js'; // O el modelo que uses
+import Product from '../models/Product.js';
 
 const router = Router();
 
 router.get('/', async (req, res) => {
   try {
-    const { limit = 10, page = 1, sort, query } = req.query;
+    const { limit = 5, page = 1, sort, query } = req.query;
     let filter = {};
 
     if (query) {
@@ -32,9 +32,6 @@ router.get('/', async (req, res) => {
     const prevPage = hasPrevPage ? currentPage - 1 : null;
     const nextPage = hasNextPage ? currentPage + 1 : null;
 
-    const buildLink = (p) =>
-      p ? `/api/products?limit=${limit}&page=${p}${sort ? `&sort=${sort}` : ''}${query ? `&query=${query}` : ''}` : null;
-
     res.json({
       status: 'success',
       payload: products,
@@ -43,13 +40,11 @@ router.get('/', async (req, res) => {
       nextPage,
       page: currentPage,
       hasPrevPage,
-      hasNextPage,
-      prevLink: buildLink(prevPage),
-      nextLink: buildLink(nextPage),
+      hasNextPage
     });
   } catch (error) {
-    res.status(500).json({ status: 'error', error: 'Error al obtener productos' });
+    res.status(500).json({ status: 'error', error: error.message });
   }
 });
 
-export default router;  
+export default router;
