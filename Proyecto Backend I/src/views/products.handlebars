@@ -24,7 +24,7 @@ const form = document.getElementById('filterForm');
 const container = document.getElementById('productsContainer');
 const pagination = document.getElementById('pagination');
 let currentPage = 1;
-let limit = 5;
+let limit = 10;
 
 async function loadProducts(page = 1) {
   const formData = new FormData(form);

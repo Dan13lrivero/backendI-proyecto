@@ -12,7 +12,7 @@ async function loadProducts(page = 1) {
   if (category) query.push(`category:${category}`);
   const queryString = query.length ? `&query=${query.join(',')}` : '';
 
-  const res = await fetch(`/api/products?limit=5&page=${page}${sort ? `&sort=${sort}` : ''}${queryString}`);
+  const res = await fetch(`/api/products?limit=10&page=${page}${sort ? `&sort=${sort}` : ''}${queryString}`);
   const data = await res.json();
 
   container.innerHTML = '';
