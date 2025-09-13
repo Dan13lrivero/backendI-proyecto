@@ -44,9 +44,9 @@ async function loadProducts(page = 1) {
   container.innerHTML = '';
   data.payload.forEach(p => {
     container.innerHTML += `
-      <div class="card text-center p-2" data-id="${p._id}">
+      <div class="card text-center p-2 product-card" data-id="${p._id}">
         <a href="/products/${p.id || p._id}">
-          <img src="${p.thumbnail}" alt="${p.title}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
+          <img src="${p.thumbnail}" alt="${p.title}" class="product-card-img" />
           <h3>${p.title}</h3>
         </a>
         <p>${p.description}</p>

@@ -4,7 +4,7 @@
   {{#if cart.products.length}}
     {{#each cart.products}}
       <div class="cart-item card text-center p-2">
-        <img src="{{this.product.thumbnail}}" alt="{{this.product.title}}" class="mb-2" style="width:150px; height:150px; object-fit:cover; border-radius:8px;">
+        <img src="{{this.product.thumbnail}}" alt="{{this.product.title}}" class="cart-img mb-2">
         <h3>{{this.product.title}}</h3>
         <p>Precio: ${{this.product.price}}</p>
         <p>Cantidad: {{this.quantity}}</p>
@@ -12,7 +12,6 @@
       </div>
     {{/each}}
 
-    <!-- Botón global para vaciar el carrito -->
     <div class="w-100 text-center mt-4">
       <button id="clearCartBtn" class="btn btn-danger">Vaciar carrito</button>
     </div>

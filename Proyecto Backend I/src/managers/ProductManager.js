@@ -15,8 +15,6 @@ const productSchema = new mongoose.Schema({
 const Product = mongoose.models.Product || mongoose.model("Product", productSchema);
 
 export default class ProductManager {
-  constructor() {}
-
   async getProducts() {
     return await Product.find().lean();
   }
@@ -35,12 +33,11 @@ export default class ProductManager {
   }
 
   async updateProduct(id, updates) {
-    const updatedProduct = await Product.findOneAndUpdate(
+    return await Product.findOneAndUpdate(
       { id: Number(id) },
       updates,
       { new: true, lean: true }
     );
-    return updatedProduct;
   }
 
   async deleteProduct(id) {

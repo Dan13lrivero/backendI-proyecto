@@ -2,8 +2,8 @@
 
 <div id="productList" class="cards-container d-flex flex-wrap justify-content-center gap-3">
   {{#each products}}
-    <div class="card text-center p-2" data-id="{{this._id}}">
-      <img src="{{this.thumbnail}}" alt="{{this.title}}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
+    <div class="card text-center p-2 product-card" data-id="{{this._id}}">
+      <img src="{{this.thumbnail}}" alt="{{this.title}}" class="product-card-img" />
       <h3>{{this.title}}</h3>
       <p>{{this.description}}</p>
       <p>Precio: ${{this.price}}</p>
@@ -22,8 +22,8 @@ socket.on('updateProducts', async (products) => {
   container.innerHTML = '';
   products.forEach(p => {
     container.innerHTML += `
-      <div class="card text-center p-2" data-id="${p._id}">
-        <img src="${p.thumbnail}" alt="${p.title}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
+      <div class="card text-center p-2 product-card" data-id="${p._id}">
+        <img src="${p.thumbnail}" alt="${p.title}" class="product-card-img" />
         <h3>${p.title}</h3>
         <p>${p.description}</p>
         <p>Precio: $${p.price}</p>
@@ -44,7 +44,6 @@ socket.on('updateProducts', async (products) => {
   document.querySelectorAll('.addCartBtn').forEach(btn => {
     btn.onclick = async () => {
       const productId = btn.getAttribute('data-id');
-      console.log('Agregando producto al carrito:', cartId, productId);
       await fetch(`/api/carts/${cartId}/products/${productId}`, { method: 'POST' });
       alert('Producto agregado al carrito');
     };
