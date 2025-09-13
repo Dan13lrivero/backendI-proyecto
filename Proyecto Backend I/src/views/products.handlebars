@@ -45,8 +45,10 @@ async function loadProducts(page = 1) {
   data.payload.forEach(p => {
     container.innerHTML += `
       <div class="card text-center p-2" data-id="${p._id}">
-        <img src="${p.thumbnail}" alt="${p.title}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
-        <h3>${p.title}</h3>
+        <a href="/products/${p.id || p._id}">
+          <img src="${p.thumbnail}" alt="${p.title}" style="width:150px; height:150px; object-fit:cover; border-radius:8px;" />
+          <h3>${p.title}</h3>
+        </a>
         <p>${p.description}</p>
         <p>Precio: $${p.price}</p>
         <button class="addCartBtn" data-id="${p._id}">Agregar al carrito</button>

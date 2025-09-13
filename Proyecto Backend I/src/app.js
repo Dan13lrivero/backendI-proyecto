@@ -42,31 +42,30 @@ app.get('/products', (req, res) => {
   res.render('products');
 });
 
+app.get('/products/:pid', async (req, res) => {
+  const { pid } = req.params;
+  const product = await productManager.getProductById(pid);
+  if (!product) return res.status(404).send('Producto no encontrado');
+  res.render('productDetail', { product });
+});
+
 app.get('/realtimeproducts', async (req, res) => {
   const products = await productManager.getProducts();
   res.render('realTimeProducts', { products });
 });
 
 app.get('/carts/:cid', async (req, res) => {
-  try {
-    const { cid } = req.params;
-    const cart = await cartManager.getCartById(cid);
-    if (!cart) return res.render('cart', { cart: { _id: cid, products: [] } });
-    res.render('cart', { cart });
-  } catch {
-    res.status(500).send('Error al cargar el carrito');
-  }
+  const { cid } = req.params;
+  const cart = await cartManager.getCartById(cid);
+  if (!cart) return res.render('cart', { cart: { _id: cid, products: [] } });
+  res.render('cart', { cart });
 });
 
 app.get('/api/carts/:cid', async (req, res) => {
-  try {
-    const { cid } = req.params;
-    const cart = await cartManager.getCartById(cid);
-    if (!cart) return res.json({ _id: cid, products: [] });
-    res.json(cart);
-  } catch {
-    res.status(500).json({ error: 'Error al obtener el carrito' });
-  }
+  const { cid } = req.params;
+  const cart = await cartManager.getCartById(cid);
+  if (!cart) return res.json({ _id: cid, products: [] });
+  res.json(cart);
 });
 
 app.use('/api/products', productsRouter);
